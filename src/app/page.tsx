@@ -1,37 +1,36 @@
-import Link from "next/link";
+import { db } from "~/server/db";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+// import Image from "next/image";
+
+export default async function HomePage() {
+  const posts = await db.query.posts.findMany();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
+    <div className="">
+      <h2 className="p-6 text-center text-6xl font-bold text-slate-600">
+        このリポジトリは移動されました↓
+      </h2>
+
+      {JSON.stringify(posts)}
+
+      <div className="flex flex-wrap items-center justify-center gap-4 p-12">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+          <div
+            key={i}
+            className="hover:border-white-300 cursor-pointer space-y-3 border border-slate-200 p-4"
           >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://utfs.io/f/c11b37ef-55a2-401b-bde1-5d0821702279-mtk2r0.png"
+              alt="the hack club"
+              className="m-4 h-36"
+            />
+            <div className="text-right font-medium leading-tight text-slate-400">
+              the hack club
             </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
+          </div>
+        ))}
       </div>
-    </main>
+    </div>
   );
 }
